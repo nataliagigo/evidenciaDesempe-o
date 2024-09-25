@@ -6,34 +6,49 @@
 //• Si el cliente no es miembro y la compra es menor a 300,000 pesos, no se aplica descuento ni IVA.
 //El programa debe mostrar el total de la compra, el monto del IVA aplicado y el total final con descuentos e impuestos. 
 
-const nombreCliente = prompt('Ingrese el nombre del cliente: ')
-const clienteFidelidad = prompt(nombreCliente + ' es cliente de "fidelidad"? (s/n) ')
-const compraUno = Number(prompt('Ingrese el precio de la compra número 1: '))
-const compraDos = Number(prompt('Ingrese el precio de la compra número 2: '))
-const compraTres = Number(prompt('Ingrese el precio de la compra número 3: '))
+let nuevoCliente
+    do{
+        const nombreCliente = prompt('Ingrese el nombre del cliente: ')
+        const clienteFidelidad = prompt(nombreCliente + ' es cliente de "fidelidad"? (s/n) ')
+        const compraUno = Number(prompt('Ingrese el precio de la compra número 1: '))
+        let bandera = prompt('desea ingresar mas compras? (s/n) ')
+        
+        let totalCompra = compraUno
+        while(bandera == 's'){
+            let compra = Number(prompt('Ingrese el precio de la compra: '))
+            totalCompra  += compra
+            bandera = prompt('desea ingresar mas compras? (s/n) ')
+        }
+
+        if (clienteFidelidad == 's') {
+            descuentoCompra = totalCompra * 0.10
+            if (totalCompra > 300000) {
+                iva = (totalCompra - descuentoCompra) * 0.19
+            }else {
+                iva = totalCompra * 0
+            }
+        }else if(totalCompra < 300000){
+            descuentoCompra = 0
+            iva = 0
+        }else{
+            descuentoCompra = 0
+            iva = totalCompra * 0.19
+        }
+        totalFinal = (totalCompra - descuentoCompra) + iva
+        
+        console.log('***************')
+        
+        console.log('factura del cliente ' + nombreCliente);      
+        console.log('El total de la compra fue: ' + totalCompra)
+        console.log('El monto del iva aplicado fue: ' + iva)
+        console.log('El valor del descuento es:' + descuentoCompra)
+        console.log('El total final con descuentos e iva es: ' + totalFinal);
+
+        nuevoCliente = prompt('Desea ingresar otro cliente? (s/n) ')
+    
+    }while(nuevoCliente === 's')
 
 
-const totalCompra = compraUno + compraDos + compraTres
 
-if (clienteFidelidad == 's') {
-    descuentoCompra = totalCompra * 0.10
-    if (totalCompra > 300000) {
-        iva = (totalCompra - descuentoCompra) * 0.19
-    }else {
-        iva = totalCompra * 0
-    }
-}else if(totalCompra < 300000){
-    descuentoCompra = 0
-    iva = 0
-}else{
-    descuentoCompra = 0
-    iva = totalCompra * 0.19
-}
-totalFinal = (totalCompra - descuentoCompra) + iva
-
-console.log('El total de la compra fue: ' + totalCompra)
-console.log('El monto del iva aplicado fue: ' + iva)
-console.log('El valor del descuento es:' + descuentoCompra)
-console.log('El total final con descuentos e iva es: ' + totalFinal);
 
 
